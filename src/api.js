@@ -35,7 +35,7 @@ const base_url = 'https://api.rawg.io/api/';
 const popular_games = `games?dates=${lastYear},${currentDate}&ordering=-rating&page_size=10`;
 
 // Upcomming Games
-const upcomming_games = `games?dates=${currentDay},${nextYear}&ordering=-added&page_size=10`;
+const upcomming_games = `games?dates=${currentDate},${nextYear}&ordering=-added&page_size=10`;
 
 // New Games
 const newGames = `games?dates=${lastYear},${currentDate}&ordering=-released&page_size=10`

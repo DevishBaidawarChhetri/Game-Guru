@@ -13,5 +13,5 @@ export const loadGames = () => async (dispatch) => {
       upcomming: upcommingData.data.results,
       newGames: newGamesData.data.results
     }
-  })
+  });
 }

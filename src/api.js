@@ -40,6 +40,10 @@ const upcomming_games = `games?dates=${currentDate},${nextYear}&ordering=-added&
 // New Games
 const newGames = `games?dates=${lastYear},${currentDate}&ordering=-released&page_size=10`
 
+// Get Games
 export const popularGamesUrl = () => `${base_url}${popular_games}`;
 export const upcommingGamesUrl = () => `${base_url}${upcomming_games}`;
 export const newGamesUrl = () => `${base_url}${newGames}`;
+
+// Game Details
+export const gameDetailsUrl = (id) => `${base_url}games/${id}`;

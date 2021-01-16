@@ -6,12 +6,21 @@ import { loadGames } from '../actions/gamesAction';
 
 /* ----- Components ----- */
 import Game from '../components/Game';
+import GameDetail from '../components/GameDetail';
 
 /* ----- Styles and Animation ----- */
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
+/* ----- Get React Location ----- */
+import { useLocation } from 'react-router-dom';
+
 const Home = () => {
+  /* ----- Get Location ----- */
+  const location = useLocation();
+  const pathId = location.pathname.split('/')[2];
+
+
   /* ----- Fetch Data ----- */
   const dispatch = useDispatch();
   useEffect(() => {
@@ -20,9 +29,10 @@ const Home = () => {
 
   /* ----- Get data from store (state) ----- */
   const { popular, newGames, upComming } = useSelector((state) => state.games);
-  console.log(upComming);
+
   return (
     <GameList>
+      {pathId && <GameDetail />}
       <h2>Upcomming Games</h2>
       <Games>
         {

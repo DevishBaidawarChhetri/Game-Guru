@@ -47,3 +47,6 @@ export const newGamesUrl = () => `${base_url}${newGames}`;
 
 // Game Details
 export const gameDetailsUrl = (id) => `${base_url}games/${id}`;
+
+// Get Game's Screenshot
+export const gameScreenshotUrl = (id) => `${base_url}games/${id}/screenshots`;

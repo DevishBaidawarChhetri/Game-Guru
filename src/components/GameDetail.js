@@ -7,8 +7,20 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 /* ----- Image Resize ----- */
 import { smallImage } from '../mediaResize';
+/* ----- Import Images ----- */
+import playstation from '../svg/playstation.svg';
+import steam from '../svg/steam.svg';
+import xbox from '../svg/xbox.svg';
+import nintendo from '../svg/nintendo.svg';
+import apple from '../svg/apple.svg';
+import gamepad from '../svg/gamepad.svg';
+import starFull from '../svg/star-full.svg';
+import starEmpty from '../svg/star-empty.svg';
 
 const GameDetail = ({ pathId }) => {
+  const { game, gameScreenshot, isLoading } = useSelector(state => state.gameDetails);
+
+  // Exiting to home page... "/"
   const history = useHistory();
   const exitDetailHandler = (e) => {
     const element = e.target;
@@ -17,7 +29,44 @@ const GameDetail = ({ pathId }) => {
       history.push('/');
     }
   }
-  const { game, gameScreenshot, isLoading } = useSelector(state => state.gameDetails);
+
+  // Rendering Platform Icons
+  const getPlatform = (platformName) => {
+    switch (platformName) {
+      case "PlayStation 5":
+        return playstation;
+      case "PlayStation 4":
+        return playstation;
+      case "Xbox One":
+        return xbox;
+      case "Xbox Series S/X":
+        return xbox;
+      case "PC":
+        return steam;
+      case "Nintendo Switch":
+        return nintendo;
+      case "iOS":
+        return apple;
+      case "macOS":
+        return apple;
+      default:
+        return gamepad;
+    }
+  }
+
+  // Render Stars
+  const getStars = () => {
+    const stars = [];
+    const rating = Math.floor(game.rating);
+    for (let i = 1; i <= 5; i++) {
+      if (i <= rating) {
+        stars.push(<img key={i} src={starFull} alt="Rating" />)
+      } else {
+        stars.push(<img key={i} src={starEmpty} alt="Rating" />)
+      }
+    } return stars;
+  }
+
   return (
     <>
       {
@@ -28,14 +77,14 @@ const GameDetail = ({ pathId }) => {
                 <StyledStats>
                   <div className="rating">
                     <motion.h3 layoutId={`title ${pathId}`}>{game.name}</motion.h3>
-                    <p>Rating: {game.rating}</p>
+                    {getStars()}
                   </div>
                   <StyledInfo>
                     <h3>Platforms</h3>
                     <StyledPlatforms>
                       {
                         game.platforms.map(data => (
-                          <h3 key={data.platform.id}>{data.platform.name}</h3>
+                          <img key={data.platform.id} src={getPlatform(data.platform.name)} alt={data.platform.name} title={data.platform.name} />
                         ))
                       }
                     </StyledPlatforms>
@@ -105,6 +154,12 @@ const StyledStats = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  img{
+    width:1.5rem;
+    height: 1.5rem;
+    display: inline;
+    margin-right: 0.3rem;
+  }
 `;
 
 const StyledInfo = styled(motion.div)`
@@ -115,7 +170,9 @@ const StyledPlatforms = styled(motion.div)`
   display: flex;
   justify-content: space-evenly;
   img{
-    margin-left: 3rem;
+    margin: 0 0.5rem;
+    width: 1.5rem;
+
   }
 `;
 

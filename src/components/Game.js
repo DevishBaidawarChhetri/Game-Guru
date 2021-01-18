@@ -8,6 +8,9 @@ import { loadGameDetail } from '../actions/gameDetailAction';
 /* ----- React Router ----- */
 import { Link } from 'react-router-dom';
 
+/* ----- Image Resize ----- */
+import { smallImage } from '../mediaResize';
+
 const Game = ({ name, released, image, id }) => {
   const stringPathId = id.toString();
   // Load Game Details
@@ -20,9 +23,9 @@ const Game = ({ name, released, image, id }) => {
   return (
     <StyledGame layoutId={stringPathId} onClick={loadDetailHandler}>
       <Link to={`/game/${id}`}>
-        <h3>{name}</h3>
+        <motion.h3 layoutId={`title ${stringPathId}`}>{name}</motion.h3>
         <p>{released}</p>
-        <img src={image} alt={name} />
+        <motion.img layoutId={`image ${stringPathId}`} src={smallImage(image, 640)} alt={name} />
       </Link>
     </StyledGame>
   );

@@ -5,6 +5,8 @@ import { motion } from 'framer-motion';
 /* ----- Redux ----- */
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+/* ----- Image Resize ----- */
+import { smallImage } from '../mediaResize';
 
 const GameDetail = ({ pathId }) => {
   const history = useHistory();
@@ -25,7 +27,7 @@ const GameDetail = ({ pathId }) => {
               <StyledDetail layoutId={pathId}>
                 <StyledStats>
                   <div className="rating">
-                    <h3>{game.name}</h3>
+                    <motion.h3 layoutId={`title ${pathId}`}>{game.name}</motion.h3>
                     <p>Rating: {game.rating}</p>
                   </div>
                   <StyledInfo>
@@ -40,7 +42,7 @@ const GameDetail = ({ pathId }) => {
                   </StyledInfo>
                 </StyledStats>
                 <StyledMedia>
-                  <img src={game.background_image} alt={game.name} />
+                  <motion.img layoutId={`image ${pathId}`} src={smallImage(game.background_image, 1280)} alt={game.name} />
                 </StyledMedia>
                 <StyledDescription>
                   <p>{game.description_raw}</p>
@@ -48,7 +50,7 @@ const GameDetail = ({ pathId }) => {
                 <StyledGallery>
                   {
                     gameScreenshot.results.map(screenshot => (
-                      <img src={screenshot.image} key={screenshot.id} alt={screenshot.id} />
+                      <img src={smallImage(screenshot.image, 1280)} key={screenshot.id} alt={screenshot.id} />
                     ))
                   }
                 </StyledGallery>

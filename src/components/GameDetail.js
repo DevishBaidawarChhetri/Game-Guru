@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-const GameDetail = () => {
+const GameDetail = ({ pathId }) => {
   const history = useHistory();
   const exitDetailHandler = (e) => {
     const element = e.target;
@@ -14,7 +14,6 @@ const GameDetail = () => {
       document.body.style.overflow = 'auto';
       history.push('/');
     }
-    // console.log(history);
   }
   const { game, gameScreenshot, isLoading } = useSelector(state => state.gameDetails);
   return (
@@ -22,37 +21,40 @@ const GameDetail = () => {
       {
         !isLoading && (
           <StyledCardShadow className="shadow" onClick={exitDetailHandler}>
-            <StyledDetail>
-              <StyledStats>
-                <div className="rating">
-                  <h3>{game.name}</h3>
-                  <p>Rating: {game.rating}</p>
-                </div>
-                <StyledInfo>
-                  <h3>Platforms</h3>
-                  <StyledPlatforms>
-                    {
-                      game.platforms.map(data => (
-                        <h3 key={data.platform.id}>{data.platform.name}</h3>
-                      ))
-                    }
-                  </StyledPlatforms>
-                </StyledInfo>
-              </StyledStats>
-              <StyledMedia>
-                <img src={game.background_image} alt={game.name} />
-              </StyledMedia>
-              <StyledDescription>
-                <p>{game.description_raw}</p>
-              </StyledDescription>
-              <StyledGallery>
-                {
-                  gameScreenshot.results.map(screenshot => (
-                    <img src={screenshot.image} key={screenshot.id} alt={screenshot.id} />
-                  ))
-                }
-              </StyledGallery>
-            </StyledDetail>
+            <div className="detail-container">
+              <StyledDetail layoutId={pathId}>
+                <StyledStats>
+                  <div className="rating">
+                    <h3>{game.name}</h3>
+                    <p>Rating: {game.rating}</p>
+                  </div>
+                  <StyledInfo>
+                    <h3>Platforms</h3>
+                    <StyledPlatforms>
+                      {
+                        game.platforms.map(data => (
+                          <h3 key={data.platform.id}>{data.platform.name}</h3>
+                        ))
+                      }
+                    </StyledPlatforms>
+                  </StyledInfo>
+                </StyledStats>
+                <StyledMedia>
+                  <img src={game.background_image} alt={game.name} />
+                </StyledMedia>
+                <StyledDescription>
+                  <p>{game.description_raw}</p>
+                </StyledDescription>
+                <StyledGallery>
+                  {
+                    gameScreenshot.results.map(screenshot => (
+                      <img src={screenshot.image} key={screenshot.id} alt={screenshot.id} />
+                    ))
+                  }
+                </StyledGallery>
+              </StyledDetail>
+
+            </div>
           </StyledCardShadow>
         )
       }
@@ -64,9 +66,10 @@ const StyledCardShadow = styled(motion.div)`
   width: 100%;
   min-height: 100vh;
   overflow-y: scroll;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6);
   position: fixed;
   top: 0; left: 0;
+  z-index: 1;
   &::-webkit-scrollbar{
     width: 0.5rem;
   }
@@ -76,6 +79,10 @@ const StyledCardShadow = styled(motion.div)`
   &::-webkit-scrollbar-track{
     background: #fff;
   }
+  .detail-container{
+    width: 80%;
+    margin: 0 auto;
+  }
 `;
 
 const StyledDetail = styled(motion.div)`
@@ -84,9 +91,8 @@ const StyledDetail = styled(motion.div)`
   background: #fff;
   border-radius: 0.5rem;
   padding: 2rem 5rem;
+  z-index: 2;
   position: absolute;
-  left: 50%;
-  transform: translate(-50%, 0%);
   img{
     width: 100%;
     border-radius: 0.5rem;

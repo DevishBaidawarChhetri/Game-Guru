@@ -32,13 +32,13 @@ const nextYear = `${currentYear + 1}-${currentMonth}-${currentDay}`;
 const base_url = 'https://api.rawg.io/api/';
 
 // Popular Games
-const popular_games = `games?dates=${lastYear},${currentDate}&ordering=-rating&page_size=10`;
+const popular_games = `games?dates=${lastYear},${currentDate}&ordering=-rating`;
 
 // Upcomming Games
-const upcomming_games = `games?dates=${currentDate},${nextYear}&ordering=-added&page_size=10`;
+const upcomming_games = `games?dates=${currentDate},${nextYear}&ordering=-added`;
 
 // New Games
-const newGames = `games?dates=${lastYear},${currentDate}&ordering=-released&page_size=10`
+const newGames = `games?dates=${lastYear},${currentDate}&ordering=-released&page_size=12`
 
 // Get Games
 export const popularGamesUrl = () => `${base_url}${popular_games}`;
@@ -50,3 +50,6 @@ export const gameDetailsUrl = (id) => `${base_url}games/${id}`;
 
 // Get Game's Screenshot
 export const gameScreenshotUrl = (id) => `${base_url}games/${id}/screenshots`;
+
+// Search Game
+export const searchGameUrl = (game_name) => `${base_url}games?search=${game_name}`;

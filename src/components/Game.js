@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom';
 
 /* ----- Image Resize ----- */
 import { smallImage } from '../mediaResize';
-import { popularGamesUrl } from '../api';
 
 const Game = ({ name, released, image, id }) => {
   const stringPathId = id.toString();

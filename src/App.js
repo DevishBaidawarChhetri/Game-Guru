@@ -3,6 +3,7 @@ import React from 'react';
 import Home from './pages/Home';
 /* ----- Components ----- */
 import Nav from './components/Nav';
+import Footer from './components/Footer';
 /* ----- Styles and Animation ----- */
 import GlobalStyles from './components/GlobalStyles';
 /* ----- React Router ----- */
@@ -17,6 +18,7 @@ function App() {
       <Route path={["/game/:id", "/"]}>
         <Home />
       </Route>
+      <Footer />
     </div>
   );
 }

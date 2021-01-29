@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
   *{
@@ -44,6 +44,23 @@ const GlobalStyles = createGlobalStyle`
     font-weight: bold;
     font-family: 'Montserrat', sans-serif;
   }
+  @media screen and (max-width: 768px) {
+		h2{
+      font-size: 1.5rem;
+      text-align: center;
+    }
+    h3{
+      font-size: 1rem;
+      color: #333;
+      padding: 1rem 0 0;
+    }
+    p{
+      font-size: 0.9rem;
+      line-height: 200%;
+      color: #696969;
+      margin-bottom: 0.3rem;
+    }
+	}
 `;
 
 export default GlobalStyles;
